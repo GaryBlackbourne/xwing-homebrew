@@ -1,0 +1,82 @@
+* concept
+
+Ships fly around, shooting at eachother, gaining objective points, and
+killing eachother.
+
+The game is divided into *sessions*, one session is made up of three
+parts *setup*, *mission*, *cleanup*.
+
+** Setup
+- In the setup, declare the players who participate.
+- Declare the exact ships, pilots, upgrades (hence *list*) the player
+  controls.
+- choose one mission
+- declare alliances (groups of players who are friendly to eachother)
+- set up the table according to the mission rules
+- set up player assets (ships, ship cards, dice, etd)
+  
+** Mission
+*** deploy forces
+- place forces on to the map respecting the *deployment restrictions*
+  and the mission rules
+- set up ship meta assets according to the mission rules (starting
+  energy, charge, wing/setup, etc.)
+*** rounds
+- play the amount of *rounds* the mission specifies, or until the mission
+  end-criteria is met
+*** mission end criteria
+- each mission must contain at least one criteria which marks the end of the
+  mission
+
+** Cleanup
+- calculate faction points
+- calculate player points
+- declare winner
+
+* modules
+
+** map
+The play area is called the *map*. Every entity in the game which can
+have "distance" from anything must be placed in between the map
+borders.
+
+*** layout
+The layout is the geometry of mission entities and obstacles (= "terrain") on
+the map.
+
+** units
+Every unit in the game must consist of three parts. One base being the gameplay
+projection of a unit, one miniature and one board containing all meta
+information about the unit, like skills, HP, weaponry, and actions.
+
+*** model
+
+Miniature of the unit, each ship is 1/220 scale.
+
+*** base
+
+round base 32"
+
+*** meta
+
+attack value
+hull
+shield
+movement points
+manuverur value
+
+** mechanics
+
+*** manuveurs
+
+*** actions
+
+**** shooting
+
+**** focus
+
+**** lock
+
+**** evade
+
+**** ...
