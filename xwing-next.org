@@ -33,41 +33,138 @@ parts *setup*, *mission*, *cleanup*.
 - calculate player points
 - declare winner
 
-* modules
+* Modules
 
-** map
+** Map
 The play area is called the *map*. Every entity in the game which can
 have "distance" from anything must be placed in between the map
 borders.
 
-*** layout
+*** Layout
 The layout is the geometry of mission entities and obstacles (= "terrain") on
 the map.
 
-** units
+** Units
 Every unit in the game must consist of three parts. One base being the gameplay
-projection of a unit, one miniature and one board containing all meta
-information about the unit, like skills, HP, weaponry, and actions.
+projection of a unit, one miniature according to the unit's type and one board
+containing all meta information about the unit, like skills, HP, weaponry, and
+actions.
 
-*** model
+There are three types of units: small, medium and large. Depending on the size,
+each miniature has an appropriatley sized base which helps with maneuvering and
+angles.
 
-Miniature of the unit, each ship is 1/220 scale.
+*** Model
 
-*** base
+Miniature of the unit, each ship is 1/220 scale. No restriction about painting
+and looks, if both players are able to recognize the unit then it is battle ready.
 
-round base 32"
+*** Base
 
-*** meta
+Every miniature must have a standard sized round base, according to the size of
+the miniature. Here are the standard base sizes (diameter):
 
-attack value
-hull
-shield
-movement points
-manuverur value
+# Any base sizes are not yet final, we need an approximation of the miniature
+# sizes we want to use and allow, and calibrate base sizes for it. It should be
+# practical to use Warhammer40K standardized bases, since they are available
+
+- small unit: 50mm
+- medium unit: 75mm
+- large unit: 100mm
+
+The bases must be round, and have indication for the following:
+- front orientation marker
+- markings around the base at every 30° 
+- the markings must align with the front marker
+- slot for affiliation marker
+- slot for unit id marker
+ 
+*** Metadata
+
+Each unit interacts with other game entities based on the metadata linked to
+it. This metadata consists of keywords and numerical values, which determines
+the units affiliation, and it's action's availability and
+effectiveness. Different pars of a unit (eg ship/pilot/loadout/upgrade/talent)
+contributes to differet meta values.
+
+**** Unit Metadata
+
+***** Faction
+
+Faction is a ~keyword~ representing the faction which the unit belongs
+to. Mission rules and card rules may refer to this keyword of a unit. Units with
+the same faction keyword are ~friendly~ to eachother, unless stated otherwise by
+a mission rule.
+
+***** Affiliation
+
+Affiliation is a logical group representing a player. It is marked by a color,
+choosen by the player if mission rules don't specify it. Every unit with the
+same affiliation is ~friendly~ to eachother.
+
+***** Ship type
+
+Ship type declares the chasses of the ship, it's default values, loadout and
+upgrade slots.
+Each ship type has the following numeric values associated:
+- maximum hull value
+- maximum shields value
+- attack value
+- movement points
+- maneuverability points
+Each ship type also lists two types of upgrade slots: ~system-upgrade~ and
+~hardpoint~ slots. Additional weaponry might be attached to ~hardpoint slots~,
+and system modifying upgrades can be installed to ~system-upgrade~ slots.
+
+***** Hull
+
+The ship's ~hull~ value represents it's physical condition. If this value
+reaches 0, the unit dies. It's initial value is set by the ship's type.
+
+***** Shields
+
+The ship's ~shield~ value represents it's shields condition. Shields are a
+defensive mechanism, lowering or neutralizing damage dealt to a unit. A unit
+with shield value of 0 does not benefit from shield protection.
+
+***** Attack value
+
+The ship's attack value represents the firepower of it's primary
+weaponry. During engagement the attack value of a ship is the number of dice
+that the player may roll for a primary attack. Ships have a primary attack
+value, set by their type, also different weaponrs might have different attack
+values on one unit. More on this topic in [[*shooting][shooting.]]
+
+***** Movement points
+
+# TODO: set phases with exact names
+The ship's movement points are it's speed. Movement points are spend during
+movement phase. For each point a unit may move one step. More on this in [[maneuveurs]].
+
+***** Maneuverability points
+
+The maneuverability points represent how many turns a unit may do in one maneuver
+step.
+# or how much can a ship turn?
+
+
+***** Agility
+The agility value represent how much can a ship turn after each step.
+
+**** Building a unit
+
+Every metadata of a unit must be stored on a unit card or board, built by
+the player from assets. Building a unit means the following:
+
+1. Declare faction
+2. Select one ship type from the factions ship list
+3. Select an appropriate pilot from the factions pilot list
+4. Select loadout for the ships loadout slots
+5. Select talents for the pilots taalent slots
 
 ** mechanics
 
-*** manuveurs
+*** maneuveurs
 
 *** actions
 
