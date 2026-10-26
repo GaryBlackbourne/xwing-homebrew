@@ -139,17 +139,37 @@ values on one unit. More on this topic in [[*shooting][shooting.]]
 
 # TODO: set phases with exact names
 The ship's movement points are it's speed. Movement points are spend during
-movement phase. For each point a unit may move one step. More on this in [[maneuveurs]].
+movement phase. For each point a unit may move one step. More on this in
+[[maneuveurs]]. It's initial value is set by the ship's type.
+
 
 ***** Maneuverability points
 
 The maneuverability points represent how many turns a unit may do in one maneuver
-step.
+step. It's initial value is set by the ship's type.
 # or how much can a ship turn?
 
-
 ***** Agility
-The agility value represent how much can a ship turn after each step.
+
+The agility value represent how much can a ship turn after each step. This value
+represents the amount of segments, and symmetrical to the velocity vector. It's
+initial value is set by the ship's type.
+
+***** Aim skill
+
+This value represents the skill of the pilot in aiming. Affects how hard it is
+for one blast to hit the target. It's initial value is set by the pilot.
+
+***** Evasion skill
+
+This value represents the skill of the pilot in evading incomming shots. While
+defending, this value makes the unit harder to hit.
+
+***** Actions list
+
+This is a list of actions a unit may make. Actions can be given to a unit by a
+ship (like targeting computer) or from the pilot (like focus), or a upgrade,
+talent, or loadout.
 
 **** Building a unit
 
@@ -161,10 +181,23 @@ the player from assets. Building a unit means the following:
 3. Select an appropriate pilot from the factions pilot list
 4. Select loadout for the ships loadout slots
 5. Select talents for the pilots taalent slots
+6. Select upgrades for the ships upgrade slots
 
 ** mechanics
 
 *** maneuveurs
+
+Maneuveuring in the game uses five manuveur tools. Each is a "rod"-like template
+with different lengths, and curved endings, which match the curve of the
+bases. Middle line is indicated to access more accurate placement.
+
+For each movement point a unit may move 50 mm. This can be measured from the
+front side of the base from the starting position to the back side of the base
+at the end position. After one step, the unit may rotate any amount of degrees
+in any direction, in the angle determined by the agility.
+
+A unit can make any number of moves, as long as it has movement points, but it
+can only turn as many as many maneuverability points it has.
 
 *** actions
 
