@@ -17,12 +17,12 @@ parts *setup*, *mission*, *cleanup*.
   
 ** Mission
 *** deploy forces
-- place forces on to the map respecting the *deployment restrictions*
+- place forces on to the map respecting the ~deployment constraints~
   and the mission rules
 - set up ship meta assets according to the mission rules (starting
   energy, charge, wing/setup, etc.)
 *** rounds
-- play the amount of *rounds* the mission specifies, or until the mission
+- play the amount of ~rounds~ the mission specifies, or until the mission
   end-criteria is met
 *** mission end criteria
 - each mission must contain at least one criteria which marks the end of the
@@ -33,16 +33,124 @@ parts *setup*, *mission*, *cleanup*.
 - calculate player points
 - declare winner
 
-* Modules
+* Entity hierarchy
 
-** Map
+** Entities
+Everything that is representegd in the game with a token, model, overlay, or any
+other physical object is called an ~entity~.
+
+*** Overlays
+Overlays are thin, entities which can be applied onto eachother, providing
+effects and possibilities on a region. The first overlay which is placed in
+every game is called the ~map~, allowing every other entity to be placed.
+
+Other entities may include:
+- force fields, affecting navigation
+- clouds, affecting vision and systems behavior
+- areas, enabling actions to units inside them
+
+Overlays have two kinds, coering, and non-covering. Covering overlays remove
+effects of overlays bellow, while non-covering overlays simply add their effect
+on top of the overlays below.
+
+Overlay effects always calculated from the bottom to the top, taking effect at
+the same time.
+
+**** Map
 The play area is called the *map*. Every entity in the game which can
 have "distance" from anything must be placed in between the map
 borders.
 
+# todo: describe other overlays, clouds force fields areas
+
+*** Objects
+Objects are entities which can be placed on the map, effectively taking up space
+and cannot overlap with eachother.
+
+**** Unit
+Units are objects which are controlled by a player or a game mechanic
+(NPC). They are the core assets of every game.
+
+**** Obstacles
+Obstacles are non controlled entities on the map, which only affects
+units in the 3 following ways:
+- obstruction: one unit's ~line of sight~ on another unit is ~obstructed~ if
+  there is an obstacle between them
+- collision: a unit may not move to overlap an obstacle, if it doesn't have a
+  choice suffer penalty.
+- destructible: can be targeted, locked, attacked. Have HP, and destroyed if HP
+  is decreased to 0.
+
+**** Items
+Items are non controlled entities on the map, with slightly different properties
+than obstacles.
+- obstruction: they do not obstruct ~line of sight~
+- collision: a unit may not overlap with an item, but collision doesn't always
+  cause penalty over a unit.
+- destructible: an item may or may not be destructible
+
+* Game concepts 
+
+** Meta
 *** Layout
-The layout is the geometry of mission entities and obstacles (= "terrain") on
-the map.
+The layout is the geometry of entities in one game. Every mission starts by
+specifying the map constraints (size and form) and necessary mission entities,
+like:
+- applying ~overlays~ for mission effects if required
+- placing ~obstacles~ if required
+- placing ~items~ if required
+- specifying unit ~deployment~ constraints if required
+
+*** Game flow
+The game is divided into ~rounds~. Players proggress through several ~phases~
+where they take ~turns~ interacting with their units, other players, other game
+entities or rules.
+
+The amount of rounds in a game is specified by the ~mission~.
+
+**** Phases
+The game differentiates between 4 phases
+1. *start of round*
+   This phase is only a reference for rules and triggers
+
+2. *activation phase*
+   In this phase, players take ~turns~ activating their units, make moves with
+   them, and performing ~actions~.
+
+3. *engagement phase*
+   In this phase, players take ~turns~ engaging with their ~units~.
+
+4. *end of round*
+   This phase is only a reference for rules and triggers.
+
+*** mechanics
+
+**** maneuveurs
+
+Maneuveuring in the game uses five manuveur tools. Each is a "rod"-like template
+with different lengths, and curved endings, which match the curve of the
+bases. Middle line is indicated to access more accurate placement.
+
+For each movement point a unit may move 50 mm. This can be measured from the
+front side of the base from the starting position to the back side of the base
+at the end position. After one step, the unit may rotate any amount of degrees
+in any direction, in the angle determined by the agility.
+
+A unit can make any number of moves, as long as it has movement points, but it
+can only turn as many as many maneuverability points it has.
+
+**** actions
+
+***** shooting
+
+***** focus
+
+***** lock
+
+***** evade
+
+***** ...
+
 
 ** Units
 Every unit in the game must consist of three parts. One base being the gameplay
@@ -80,7 +188,6 @@ The bases must be round, and have indication for the following:
 - slot for unit id marker
  
 *** Metadata
-
 Each unit interacts with other game entities based on the metadata linked to
 it. This metadata consists of keywords and numerical values, which determines
 the units affiliation, and it's action's availability and
@@ -183,30 +290,5 @@ the player from assets. Building a unit means the following:
 5. Select talents for the pilots taalent slots
 6. Select upgrades for the ships upgrade slots
 
-** mechanics
+   
 
-*** maneuveurs
-
-Maneuveuring in the game uses five manuveur tools. Each is a "rod"-like template
-with different lengths, and curved endings, which match the curve of the
-bases. Middle line is indicated to access more accurate placement.
-
-For each movement point a unit may move 50 mm. This can be measured from the
-front side of the base from the starting position to the back side of the base
-at the end position. After one step, the unit may rotate any amount of degrees
-in any direction, in the angle determined by the agility.
-
-A unit can make any number of moves, as long as it has movement points, but it
-can only turn as many as many maneuverability points it has.
-
-*** actions
-
-**** shooting
-
-**** focus
-
-**** lock
-
-**** evade
-
-**** ...
