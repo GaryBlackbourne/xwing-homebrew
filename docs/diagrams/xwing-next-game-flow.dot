@@ -1,0 +1,25 @@
+digraph game_flow {
+    graph[compound=true]
+    rankdir=TB
+
+    setup [label="Setup"]
+    cleanup [label="Cleanup"]
+
+    subgraph cluster_round {
+        label="Round"
+        style=rounded
+
+        phase_plan [label="planning phase"]
+        phase_activation [label="activation phase"]
+        phase_engagement [label="engagement phase"]
+
+        phase_plan ->
+        phase_activation ->
+        phase_engagement ->
+        phase_plan
+    }
+
+    setup -> phase_plan
+
+    {phase_plan phase_activation phase_engagement} -> cleanup [ltail=cluster_round constraint=false]
+}

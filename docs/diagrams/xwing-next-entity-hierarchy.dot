@@ -1,0 +1,18 @@
+# Entity diagram for XWing Next system
+
+digraph xwn_entity_hierarchy {
+    graph [rankdir=TB, fontname="Helvetica", fontsize=12, nodesep=0.5, ranksep=0.7,
+           label="XWing-Next entity diagram", labelloc=t, fontsize=18, compound=true];
+    node  [fontname="Helvetica", fontsize=10];
+    edge  [fontname="Helvetica", fontsize=9];
+
+    subgraph cluster_entities {
+        label="Entity hierarchy"; style="rounded,filled"; fillcolor="#f4faf2"; color="#8cbf7f";
+        Entity -> Overlay
+        Entity -> Object
+
+        Object -> Unit
+        Object -> Obstacle
+        Object -> Item
+    }
+}
