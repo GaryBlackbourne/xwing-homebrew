@@ -75,14 +75,10 @@ Everything that is representegd in the game with a token, model, overlay, or any
 other physical object is called an ~entity~.
 
 *** Overlays
-Overlays are thin, entities which can be applied onto eachother, providing
-effects and possibilities on a region. The first overlay which is placed in
-every game is called the ~map~, allowing every other entity to be placed.
-
-Other entities may include:
-- force fields, affecting navigation
-- clouds, affecting vision and systems behavior
-- areas, enabling actions to units inside them
+Overlays are entities with thin assets which can be applied onto eachother,
+providing effects and possibilities on a region. The first overlay which is
+placed in every game is called the ~map~, allowing every other entity to be
+placed.
 
 Overlays have two kinds, coering, and non-covering. Covering overlays remove
 effects of overlays bellow, while non-covering overlays simply add their effect
@@ -91,16 +87,19 @@ on top of the overlays below.
 Overlay effects always calculated from the bottom to the top, taking effect at
 the same time.
 
-**** Map
-The play area is called the *map*. Every entity in the game which can
-have "distance" from anything must be placed in between the map
-borders.
-
-# todo: describe other overlays, clouds force fields areas
+The most common overlay is the ~map~.  Every entity in the game which can have
+"distance" from anything must be placed on the map.
 
 *** Objects
 Objects are entities which can be placed on the map, effectively taking up space
 and cannot overlap with eachother.
+
+Certain edge cases might force objects to overlap, movement rules ellaborate on
+how to place objects under these circumstance. By default, the newly placed
+object has to be placed to the closest available space to the originally
+specified space so objects in any stable game state, they do not overlap. Other
+rules may override this behavior but **object overlapping is always strictly
+forbidden in any stable state**.
 
 **** Unit
 Units are objects which are controlled by a player or a game mechanic
@@ -111,8 +110,9 @@ Obstacles are non controlled entities on the map, which only affects
 units in the 3 following ways:
 - obstruction: one unit's ~line of sight~ on another unit is ~obstructed~ if
   there is an obstacle between them
-- collision: a unit may not move to overlap an obstacle, if it doesn't have a
-  choice suffer penalty.
+- collision: a unit must not move to overlap an obstacle, if it doesn't have a
+  choice suffer penalty. Movement rules ellaborate on object placement in edge
+  cases otherwise follow the default rule.
 - destructible: can be targeted, locked, attacked. Have HP, and destroyed if HP
   is decreased to 0.
 
@@ -120,7 +120,7 @@ units in the 3 following ways:
 Items are non controlled entities on the map, with slightly different properties
 than obstacles.
 - obstruction: they do not obstruct ~line of sight~
-- collision: a unit may not overlap with an item, but collision doesn't always
+- collision: a unit must not overlap with an item, but collision doesn't always
   cause penalty over a unit.
 - destructible: an item may or may not be destructible
 
