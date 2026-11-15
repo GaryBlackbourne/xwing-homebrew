@@ -1,37 +1,72 @@
-* concept
+#+TITLE:   XWing Next System
+#+AUTHOR:  Gergely Koloszar
+#+DATE:    2026-11-15
+#+VERSION: 0.1.0
 
-Ships fly around, shooting at eachother, gaining objective points, and
-killing eachother.
+* Concept
+This document describes the system for a tabletop wargame. The system is heavily
+inspired by ~X-Wing TMG~. The system's main goal is to provide foundations for
+flight based wargames without putting restrictions on game theme and art.
 
-The game is divided into *sessions*, one session is made up of three
-parts *setup*, *mission*, *cleanup*.
+The main concempt of the engine revolves around spacecrafts or aircrafts flying
+around as ~units~, while engaging with eachother and other game assets and while
+doing so, gaining objective points, and killing eachother.
 
-** Setup
-- In the setup, declare the players who participate.
-- Declare the exact ships, pilots, upgrades (hence *list*) the player
-  controls.
-- choose one mission
-- declare alliances (groups of players who are friendly to eachother)
-- set up the table according to the mission rules
-- set up player assets (ships, ship cards, dice, etd)
+This document only specifies systems used in one ~session~, so potential
+campaigns, linked missions, or other more abstract systems may be built on top
+of it.
+
+* Game flow
+The game is divided into ~sessions~. One session means one game, where the
+starting criteria of a session virtually describes every possible game flow
+paths, (even if there is continuum-infinite about them), and from a sessions
+start to a sessions end, no external new information will modify the game's
+state space outside of true-random values.
+
+A session is made up of three parts:
+- setup
+- mission
+- cleanup
   
+** Setup
+The setup part is where all assets, rules, and information are fixed which
+are needed for the full session. The steps of one session setup are:
+1. Declare ~mission~
+   - Declare mission assets
+   - Declare mission goal
+   - Declare mission end criteria
+   - Declare ~alliances~ (groups of players/NPCs who are friendly to eachother)
+2. Declare the players who participate
+3. Declare the units for each player, and/or NPCs (respecting mission restrictions)
+4. set up the table according to the mission rules
+
 ** Mission
-*** deploy forces
-- place forces on to the map respecting the ~deployment constraints~
-  and the mission rules
-- set up ship meta assets according to the mission rules (starting
-  energy, charge, wing/setup, etc.)
-*** rounds
-- play the amount of ~rounds~ the mission specifies, or until the mission
-  end-criteria is met
-*** mission end criteria
-- each mission must contain at least one criteria which marks the end of the
-  mission
+The mission is a concept which describes the starting state, end criteria,
+victory points (if any), and alliances for each game session. Playing a(n
+already set up) missison means proceeding through the next three-plus-one parts
+of it.
+
+*** Deploy forces
+In the deployment part, players place their units on to the map respecting the
+~deployment constraints~ if they are specified in the mission.
+
+*** Rounds
+During the game the players play rounds. A game round is made up of phases:
+- start of round
+- planing phase
+- activation phase
+- engagemnet phase
+- end of round
+# todo: specify round phases
+
+*** End of mission
+The mission must specify an ~end criteria~. If that end criteria is met, the game
+ends immediately.
 
 ** Cleanup
-- calculate faction points
-- calculate player points
-- declare winner
+After the mission end criteria is met, the mission ends and the results are
+calculated. Every mission must specify how to determine the winner. Note, that
+the winner might be one or more player, an NPC, or a faction as well.
 
 * Entity hierarchy
 
@@ -291,4 +326,5 @@ the player from assets. Building a unit means the following:
 6. Select upgrades for the ships upgrade slots
 
    
+
 
